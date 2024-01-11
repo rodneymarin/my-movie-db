@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+:root {
+    --border-color: lightgray;
+    --hover-bg-color: whitesmoke;
+    --selected-item: gold;
+    --faded-text: darkgray;
+    --disabled: gainsboro;
+    --dark-bg: black;
+    --light-bg: gray;
+    --alt-selected-item: sienna;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+*:focus-visible {
+    outline-style: dashed;
+}
+
+input {
+    width: 100%;
+    padding: 1rem;
+}
+
+.button {
+    padding: 0.6rem 1rem;
+    border-radius: 0.2rem;
+    background-color: var(--selected-item);
+    border-color: transparent;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.button:hover {
+    filter: brightness(0.95);
+}
+
+.button:disabled {
+    cursor: default;
+    color: var(--faded-text);
+    background-color: var(--disabled);
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.font-md {
+    font-size: 1rem;
+}
+
+.font-l {
+    font-size: 1.618;
+}
+
+.font-xl {
+    font-size: 2.618rem;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.faded-text {
+    color: var(--faded-text);
+}
+
+.border-1px {
+    border: 1px solid var(--border-color);
+}
+
+.rounded-sm {
+    border-radius: 0.261rem;
+}
+
+#App {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-container {
+    width: 1280px;
+}
+
+.header {
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header>* {
+    display: inline-block;
+}
+
+.filters {
+    min-height: 4rem;
+    padding: 0.4rem 0 2rem 0;
+    align-items: center;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.shaped-element {
+    border: 1px solid var(--border-color);
+    padding: 0.5rem 1rem;
+    background-color: white;
+    border-radius: 999rem;
+}
+
+.shaped-element.hover-behavior {
+    cursor: pointer;
+}
+
+.shaped-element.hover-behavior:hover {
+    filter: brightness(0.95);
+}
+
+.shaped-element.selected {
+    border-color: transparent;
+    background-color: var(--selected-item);
+}
+
+#search-result {
+    grid-column-end: span 2;
+}
+
+.sidebar {
+    padding: 0 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-container-row {}
+
+.wrap-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.fill-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.release-year-container {
+    height: 4rem;
+}
