@@ -2,9 +2,9 @@
     padding: 1rem 0;
 }
 
-.accordion-item.divider {
+/* .accordion-item.divider {
     border-top: 1px solid var(--border-color);
-}
+} */
 
 .accordion-item>.title {
     display: flex;

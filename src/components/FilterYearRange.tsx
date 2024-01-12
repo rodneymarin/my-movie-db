@@ -8,7 +8,7 @@ export interface IFilterYearRangeProps {
 
 export function FilterYearRange(props: IFilterYearRangeProps) {
     const [filterIsActive, setFilterIsActive] = useState<boolean>(false);
-    const [inputYearFrom, setInputYearFrom] = useState<number>(1900);
+    const [inputYearFrom, setInputYearFrom] = useState<number>(2000);
     const [inputYearTo, setInputYearTo] = useState<number>(new Date().getFullYear() - 1);
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {

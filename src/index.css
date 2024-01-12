@@ -22,6 +22,14 @@
     outline-style: dashed;
 }
 
+.color-selected {
+    color: var(--selected-item);
+}
+
+.border-test {
+    border: 1px solid red;
+}
+
 input {
     width: 100%;
     padding: 1rem;
@@ -50,12 +58,16 @@ input {
     justify-content: space-between;
 }
 
+.font-sm {
+    font-size: 0.6rem;
+}
+
 .font-md {
     font-size: 1rem;
 }
 
 .font-l {
-    font-size: 1.618;
+    font-size: 1.618rem;
 }
 
 .font-xl {
@@ -64,6 +76,10 @@ input {
 
 .bold {
     font-weight: bold;
+}
+
+.normal {
+    font-weight: normal;
 }
 
 .faded-text {
@@ -91,7 +107,7 @@ input {
 }
 
 .header {
-    padding-top: 4rem;
+    padding-top: 2rem;
     padding-bottom: 2rem;
     display: flex;
     flex-direction: row;
@@ -104,7 +120,7 @@ input {
 
 .filters {
     min-height: 4rem;
-    padding: 0.4rem 0 2rem 0;
+    padding: 0.4rem 0 1rem 0;
     align-items: center;
 }
 
@@ -136,6 +152,11 @@ input {
 
 #search-result {
     grid-column-end: span 2;
+    padding: 0 1em;
+}
+
+#search-result> :not(:first-child) {
+    border-top: 1px solid var(--border-color);
 }
 
 .sidebar {
@@ -144,7 +165,9 @@ input {
     flex-direction: column;
 }
 
-.flex-container-row {}
+.sidebar>:not(:first-child) {
+    border-top: 1px solid var(--border-color);
+}
 
 .wrap-container {
     display: flex;
@@ -164,4 +187,26 @@ input {
 
 .release-year-container {
     height: 4rem;
+}
+
+.movie-card {
+    display: flex;
+    flex-direction: row;
+    padding: 2rem 0;
+    gap: 2rem;
+}
+
+.movie-card .poster {
+    height: 20rem;
+}
+
+.movie-card .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.68rem;
+}
+
+.movie-card .info .rating {
+    display: inline-block;
+    margin-right: auto;
 }
