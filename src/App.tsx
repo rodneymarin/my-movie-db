@@ -47,6 +47,16 @@ function App() {
 
 	}, []);
 
+	//dark mode
+	useEffect(() => {
+		if (darkMode) {
+			document.body.setAttribute("data-theme", "dark");
+		}
+		else {
+			document.body.removeAttribute("data-theme");
+		}
+	}, [darkMode])
+
 	function buildApiStringFilters(): string {
 		var callString: string = "/discover/" + filterMediaType.value + "?include_adult=false&sort_by=vote_count.desc&language=en-US&page=1&vote_count.gte=100";
 		if (filterGenres.length > 0) {
@@ -158,11 +168,10 @@ function App() {
 
 	function themeSwitch() {
 		setDarkMode(!darkMode);
-		console.log(darkMode);
 	}
 
 	return (
-		<div id="App" data-theme={`${darkMode ? "dark" : ""}`}>
+		<div id="App">
 			<div className="app-container">
 				<header className="header">
 					<h1 className="font-xl accent-text">My Movie Database</h1>
@@ -189,8 +198,8 @@ function App() {
 							})
 						}
 					</FilterList>
-					<div className="main-grid">
-						<div className="border-1px rounded-sm">
+					<div className="main-layout">
+						<div id="searchbar" className="border-1px rounded-sm">
 							<Sidebar>
 								<AccordionItem title="Media Type">
 									<div className="wrap-container">

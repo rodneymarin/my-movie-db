@@ -33,10 +33,17 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    transition: 0.4s;
 }
 
 *:focus-visible {
     outline-style: dashed;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+
 }
 
 .color-selected {
@@ -117,18 +124,16 @@ input {
 }
 
 #App {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--background);
-    color: var(--text);
 }
 
 .app-container {
-    width: 1280px;
-    padding-bottom: 4rem;
+    max-width: 1280px;
+    padding: 0 2rem 4rem 2rem
 }
 
 .header {
@@ -149,9 +154,10 @@ input {
     align-items: center;
 }
 
-.main-grid {
+.main-layout {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "search result result";
     gap: 1rem;
 }
 
@@ -183,7 +189,8 @@ input {
 }
 
 #search-result {
-    grid-column-end: span 2;
+    /* grid-column-end: span 2; */
+    grid-area: result;
     padding: 0 1em;
 }
 
@@ -198,6 +205,10 @@ input {
     padding-top: 4rem;
     font-size: 2rem;
     color: var(--faded-text)
+}
+
+#searchbar {
+    grid-area: search;
 }
 
 .sidebar {
@@ -238,7 +249,10 @@ input {
 }
 
 .movie-card .poster {
-    height: 20rem;
+    object-fit: contain;
+    max-width: 20rem;
+    height: 100%;
+    width: 100%;
 }
 
 .movie-card .info {
@@ -250,4 +264,26 @@ input {
 .movie-card .info .rating {
     display: inline-block;
     margin-right: auto;
+}
+
+@media screen and (max-width: 920px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas: "search" "result";
+        gap: 1rem;
+    }
+
+    #search-result .empty-msg {
+        padding: 1rem 0;
+    }
+
+    .movie-card {
+        flex-direction: column;
+        padding: 2rem 1rem;
+        gap: 1rem;
+    }
+
+    .movie-card .info {
+        gap: 0.3rem;
+    }
 }
