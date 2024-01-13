@@ -36,7 +36,7 @@ export default function ToggleButtonList(props: IToggleButtonListProps) {
             {
                 props.items.map((item, index) => {
                     return (
-                        <button role="button" onClick={() => handleOnClick(item.id)} className={`shaped-element hover-behavior font-md ${activeIds.includes(item.id) ? "selected" : ""}`} >
+                        <button key={index} role="button" onClick={() => handleOnClick(item.id)} className={`shaped-element hover-behavior font-md ${activeIds.includes(item.id) ? "selected" : ""}`} >
                             {item.name}
                         </button>
                     )

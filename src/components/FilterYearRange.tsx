@@ -25,10 +25,10 @@ export function FilterYearRange(props: IFilterYearRangeProps) {
 
     return (
         <>
-            <input id="year-from" disabled={filterIsActive} type="number" min="1930" value={inputYearFrom} onChange={handleOnChange} className="border-1px font-md" />
+            <input id="year-from" disabled={filterIsActive} type="number" min="1930" value={inputYearFrom} onChange={handleOnChange} className="inputbox border-1px font-md" />
             to
-            <input id="year-to" disabled={filterIsActive} type="number" min="1931" value={inputYearTo} onChange={handleOnChange} className="border-1px font-md" />
-            <ToggleButton onClick={handleOnClick} id="" initialIsActive={false}>
+            <input id="year-to" disabled={filterIsActive} type="number" min="1931" value={inputYearTo} onChange={handleOnChange} className="inputbox border-1px font-md" />
+            <ToggleButton onClick={handleOnClick} value="" isActive={filterIsActive}>
                 Include
             </ToggleButton>
         </>

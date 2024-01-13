@@ -1,15 +1,14 @@
 import { Sidebar } from "./components/Sidebar"
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import AccordionItem from "./components/AccordionItem";
-import ToggleButton from "./components/ToggleButton";
 import FilterList from "./components/FilterList";
 import { IYearRange, IFilterItem, ApiGenreResponse, IGenre, ApiParams, ApiMovieTitle, ApiTvTitle, ApiTitleResponse, ITitleCardData } from "./global.types";
 import { FilterYearRange } from "./components/FilterYearRange";
 import FilterSingleSelection from "./components/FilterSingleSelection";
-import ToggleSwitch from "./components/ToggleSwitch";
 import axios from "axios";
 import TitleCard from "./components/TitleCard";
 import ToggleButtonList from "./components/ToggleButtonList";
+import ThemeSwitch from "./components/ThemeSwitch";
 
 enum ETitleOption {
 	movie = "movie",
@@ -18,7 +17,7 @@ enum ETitleOption {
 
 function App() {
 	const filterTitleType: IFilterItem[] = [{ value: "movie", title: "Movie" }, { value: "tv", title: "TV Series" }];
-
+	const [darkMode, setDarkMode] = useState<boolean>(false);
 	const [filterMediaType, setFilterMediaType] = useState<IFilterItem>(filterTitleType[0]);
 	const [filterReleaseYear, setFilterReleaseYear] = useState<IFilterItem[]>([]);
 	const [filterGenres, setFilterGenres] = useState<IFilterItem[]>([]);
@@ -31,19 +30,19 @@ function App() {
 	//Title state for ui cards
 	const [titlesOnScreen, setTitlesOnScreen] = useState<ITitleCardData[]>([]);
 
+	//get Genres from API
 	useEffect(() => {
 		const urlMovie: string = ApiParams.baseUrl + "/genre/movie/list";
 		const urlTv: string = ApiParams.baseUrl + "/genre/tv/list";
 		axios.get(urlMovie, { params: { api_key: ApiParams.key } })
 			.then((response) => {
 				//cast response.data type
-				setMovieGenres((response.data as ApiGenreResponse).genres);
-				//setUiGenres(movieGenres);
+				setMovieGenres([...(response.data as ApiGenreResponse).genres]);
 			});
 		axios.get(urlTv, { params: { api_key: ApiParams.key } })
 			.then((response) => {
 				//cast response.data type
-				setTvGenres((response.data as ApiGenreResponse).genres);
+				setTvGenres([...(response.data as ApiGenreResponse).genres]);
 			});
 
 	}, []);
@@ -157,12 +156,17 @@ function App() {
 		setFilterGenres(currentFilter);
 	}
 
+	function themeSwitch() {
+		setDarkMode(!darkMode);
+		console.log(darkMode);
+	}
+
 	return (
-		<div id="App">
+		<div id="App" data-theme={`${darkMode ? "dark" : ""}`}>
 			<div className="app-container">
 				<header className="header">
-					<h1 className="font-xl">My Movie Database</h1>
-					<ToggleSwitch />
+					<h1 className="font-xl accent-text">My Movie Database</h1>
+					<ThemeSwitch onClick={themeSwitch} />
 				</header>
 				<main>
 					<FilterList onClick={handleResultOnClick}>
@@ -203,7 +207,7 @@ function App() {
 									<div className="wrap-container">
 										{
 											<ToggleButtonList
-												items={filterMediaType.value == "movie" ? movieGenres : tvGenres}
+												items={filterMediaType.value == ETitleOption.movie ? movieGenres : tvGenres}
 												onSelected={handleOnSelectedGenre}
 												onDeselected={handleOnDeselectedGenre}
 											/>
@@ -219,11 +223,13 @@ function App() {
 						</div>
 						<div id="search-result" className="border-1px rounded-sm">
 							{
-								titlesOnScreen.map(item => {
-									return (
-										<TitleCard key={item.id} titleData={item} />
-									)
-								})
+								titlesOnScreen.length < 1
+									? <span className="empty-msg">Select filters to search titles</span>
+									: titlesOnScreen.map(item => {
+										return (
+											<TitleCard key={item.id} titleData={item} />
+										)
+									})
 							}
 						</div>
 					</div>

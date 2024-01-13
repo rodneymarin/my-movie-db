@@ -15,10 +15,10 @@ export default function TitleCard(props: ITitleCardProps) {
                         props.titleData.releaseDate.split("-")[0]
                     }
                 </h6>
-                <h1 className="movie-title">{props.titleData.title}</h1>
+                <h1 className="movie-title accent-text">{props.titleData.title}</h1>
                 <div className="rating shaped-element">
                     <i className="fa-solid fa-star fa-2xs color-selected" />
-                    <span className="font-md bold">{props.titleData.rating.toFixed(1)}</span>
+                    <span className="font-md bold"> {props.titleData.rating.toFixed(1)}</span>
                     <span className="font-md faded-text"> ({props.titleData.votes.toLocaleString("en-US", { maximumFractionDigits: 1, notation: "compact", compactDisplay: "short" })} votes)</span>
                 </div>
                 <div>
