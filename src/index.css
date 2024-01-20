@@ -33,8 +33,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
-    transition: 0.4s;
+
 }
+
+
 
 *:focus-visible {
     outline-style: dashed;
@@ -43,7 +45,7 @@
 body {
     background-color: var(--background);
     color: var(--text);
-
+    transition: 0.4s;
 }
 
 .color-selected {

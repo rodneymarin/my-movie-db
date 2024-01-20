@@ -16,6 +16,7 @@ enum ETitleOption {
 }
 
 function App() {
+	console.log("App render")
 	const filterTitleType: IFilterItem[] = [{ value: "movie", title: "Movie" }, { value: "tv", title: "TV Series" }];
 	const [darkMode, setDarkMode] = useState<boolean>(false);
 	const [filterMediaType, setFilterMediaType] = useState<IFilterItem>(filterTitleType[0]);
@@ -46,16 +47,6 @@ function App() {
 			});
 
 	}, []);
-
-	//dark mode
-	useEffect(() => {
-		if (darkMode) {
-			document.body.setAttribute("data-theme", "dark");
-		}
-		else {
-			document.body.removeAttribute("data-theme");
-		}
-	}, [darkMode])
 
 	function buildApiStringFilters(): string {
 		var callString: string = "/discover/" + filterMediaType.value + "?include_adult=false&sort_by=vote_count.desc&language=en-US&page=1&vote_count.gte=100";
@@ -166,16 +157,12 @@ function App() {
 		setFilterGenres(currentFilter);
 	}
 
-	function themeSwitch() {
-		setDarkMode(!darkMode);
-	}
-
 	return (
 		<div id="App">
 			<div className="app-container">
 				<header className="header">
 					<h1 className="font-xl accent-text">My Movie Database</h1>
-					<ThemeSwitch onClick={themeSwitch} />
+					<ThemeSwitch />
 				</header>
 				<main>
 					<FilterList onClick={handleResultOnClick}>
