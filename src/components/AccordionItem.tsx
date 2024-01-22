@@ -1,4 +1,3 @@
-import "./AccordionItem.css"
 import { PropsWithChildren, useState } from 'react'
 
 
@@ -10,11 +9,11 @@ export default function AccordionItem(props: PropsWithChildren<IAccordionItemPro
     const [isOpen, setIsOpen] = useState<boolean>(true);
 
     return (
-        <div className="accordion-item">
-            <label className="title bold" onClick={() => setIsOpen(!isOpen)}>
+        <div className="">
+            <label className="font-bold dark:text-white flex flex-row justify-between cursor-pointer py-3" onClick={() => setIsOpen(!isOpen)}>
                 {props.title} <i className={isOpen ? "fa-solid fa-chevron-down" : "fa-solid fa-chevron-right"}></i>
             </label>
-            <div className={`children-container ${isOpen ? "" : "closed"}`}>
+            <div className={isOpen ? "pt-2 pb-1 pl-4 h-auto overflow-auto" : "p-0 h-0 overflow-hidden"}>
                 {props.children}
             </div>
         </div>

@@ -1,34 +1,30 @@
 import { useEffect, useState } from "react";
-import { IGenre } from "../global.types";
+import { IValueKeyItem } from "../global.types";
+
+
 
 export interface IToggleButtonListProps {
-    items: IGenre[],
-    onSelected?: (index: number) => void
-    onDeselected?: (index: number) => void
+    items: IValueKeyItem[],
+    onClick?: (selection: IValueKeyItem[]) => void
 }
 
 export default function ToggleButtonList(props: IToggleButtonListProps) {
-    const [activeIds, setActiveIds] = useState<number[]>([]);
+    const [selectionIndexes, setSelectionIndexes] = useState<number[]>([]);
 
     useEffect(() => {
-        setActiveIds([]);
-    }, [props.items])
+        props.onClick && props.onClick(
+            selectionIndexes.map(index => props.items[index])
+        );
+    }, [selectionIndexes])
 
-    function handleOnClick(id: number) {
-        var newActiveIds: number[];
-        const indexOfThisId = activeIds.indexOf(id); //-1 if does not exist
-        if (indexOfThisId !== -1) {
-            newActiveIds = [...activeIds];
-            newActiveIds.splice(indexOfThisId, 1);
+    function handleOnClick(index: number) {
+        if (selectionIndexes.includes(index)) {
+            //current array minus clicked item
+            setSelectionIndexes(currentSelection => currentSelection.filter(sel => sel !== index))
         } else {
-            newActiveIds = [...activeIds, id];
+            setSelectionIndexes(currentSelection => [...currentSelection, index])
         }
-        setActiveIds(newActiveIds);
-        if (indexOfThisId !== -1) { //changed to DEselected
-            props.onDeselected && props.onDeselected(id);
-        } else {
-            props.onSelected && props.onSelected(id);
-        }
+
     }
 
     return (
@@ -36,8 +32,17 @@ export default function ToggleButtonList(props: IToggleButtonListProps) {
             {
                 props.items.map((item, index) => {
                     return (
-                        <button key={index} role="button" onClick={() => handleOnClick(item.id)} className={`shaped-element hover-behavior font-md ${activeIds.includes(item.id) ? "selected" : ""}`} >
-                            {item.name}
+                        <button
+                            key={item.key}
+                            role="button"
+                            onClick={() => handleOnClick(index)}
+                            className={
+                                `border pt-1 pb-2 px-4 rounded-full ${selectionIndexes.includes(index)
+                                    ? "border-transparent bg-yellow-400 hover:bg-yellow-500 dark:bg-indigo-900 dark:hover:bg-indigo-800"
+                                    : " hover:bg-slate-100 dark:hover:bg-indigo-950 border-gray-300 dark:border-slate-600"}`
+                            }
+                        >
+                            {item.value}
                         </button>
                     )
                 })
