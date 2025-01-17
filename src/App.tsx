@@ -51,7 +51,7 @@ function App() {
 		<div id="App" className="w-full px-4">
 			<div className="container max-w-[1200px] mx-auto flex flex-col py-16">
 				<header className="w-full py-4 flex flex-row justify-between align-middle">
-					<h1 className="text-5xl font-bold">My Movie Database</h1>
+					<h1 className="text-5xl font-bold dark:text-white">My Movie Database</h1>
 					<ThemeSwitch />
 				</header>
 				<main>
