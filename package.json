@@ -2,7 +2,7 @@
   "name": "my-movie-db",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rodneymarin.github.io/mymoviedb-public/",
+  "homepage": "https://rodneymarin.github.io/mymoviedb-build/",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
