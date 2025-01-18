@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   base: "/mymoviedb-build",
   build: {
-    outDir: '../../build'
+    outDir: '../build'
   }
 });
