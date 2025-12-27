@@ -6,45 +6,40 @@ import Layout from "./components/Layout";
 import MovieCardList from "./components/MovieCardList";
 
 function App() {
-	//Genres from api
 	const [genres, setGenres] = useState<IValueKeyItem[]>([]);
 	const [movies, setMovies] = useState<IMovieCardInfo[]>([]);
 
 	//get Genres from API
 	useEffect(() => {
-		const urlMovie: string = ApiParams.genreString() //ApiParams.baseUrl + "/genre/movie/list";
+		const urlMovie: string = ApiParams.genreString(); //ApiParams.baseUrl + "/genre/movie/list";
 		axios.get(urlMovie, { params: { api_key: ApiParams.key } })
 			.then((response) => {
 				//cast response.data type
 				const apiGenres: ApiGenreResponse = response.data;
-				setGenres(apiGenres.genres.map(genre => { return { key: genre.id, value: genre.name } }));
+				setGenres(apiGenres.genres.map(genre => { return { key: genre.id, value: genre.name }; }));
 			});
 	}, []);
 
-	function getTitlesFromApi(yearRange: IYearRange | null, genres: IValueKeyItem[]) {
-		function buildApiString(): string {
-			var callString: string = ApiParams.moviesString() //"/discover/movie?include_adult=false&sort_by=vote_count.desc&language=en-US&page=1&vote_count.gte=100";
-			if (genres.length > 0) {
-				callString += "&with_genres=" + genres.reduce<string>(function (result: string, item: IValueKeyItem) {
-					return result + (result === "" ? "" : ",") + item.key;
-				}, "");
-			}
-
-			if (yearRange !== null) {
-				callString += "&primary_release_date.gte=" + yearRange.fromYear + "-01-01" +
-					"&primary_release_date.lte=" + yearRange.toYear + "-12-31";
-			}
-
-			return callString;
+	function getMoviesFromApi(yearRange: IYearRange | null, genres: IValueKeyItem[]) {
+		//function buildApiString(): string {
+		var callString: string = ApiParams.moviesString(); //"/discover/movie?include_adult=false&sort_by=vote_count.desc&language=en-US&page=1&vote_count.gte=100";
+		if (genres.length > 0) {
+			callString += "&with_genres=" + genres.reduce<string>(function (result: string, item: IValueKeyItem) {
+				return result + (result === "" ? "" : ",") + item.key;
+			}, "");
 		}
 
-		const url: string = buildApiString().toLowerCase();
-		console.log(url);
-		axios.get(url, { params: { api_key: ApiParams.key } })
+		if (yearRange !== null) {
+			callString += "&primary_release_date.gte=" + yearRange.fromYear + "-01-01" +
+				"&primary_release_date.lte=" + yearRange.toYear + "-12-31";
+		}
+		//}
+
+		//const url: string = buildApiString().toLowerCase();
+		axios.get(callString, { params: { api_key: ApiParams.key } })
 			.then((response) => {
-				console.log("Api response.data ", response.data);
 				setMovies((response.data as ApiMovieResponse).results as IMovieCardInfo[]);
-			})
+			});
 	}
 
 	return (
@@ -55,13 +50,13 @@ function App() {
 					<ThemeSwitch />
 				</header>
 				<main>
-					<Layout onSearchClick={getTitlesFromApi} genres={genres}>
+					<Layout onSearchClick={getMoviesFromApi} genres={genres}>
 						<MovieCardList cardsInfo={movies} />
 					</Layout>
 				</main>
 			</div>
 		</div >
-	)
+	);
 }
 
-export default App
+export default App;
