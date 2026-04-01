@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-jsx": "^1.5.4",
-    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@stylistic/eslint-plugin-ts": "^4.4.1",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",
